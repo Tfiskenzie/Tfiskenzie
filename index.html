@@ -48,8 +48,36 @@
   transition:.6s ease;
 }
 
-/* ================= YOUR ORIGINAL CODE (UNCHANGED) ================= */
+/* ================= INTRO LOADER ================= */
+#introLoader{
+  position:fixed;
+  inset:0;
+  background:#F5F2EA;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .8s ease, visibility .8s ease;
+}
 
+#introLoader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.intro-text{
+  font-family:var(--font-serif);
+  font-size:3rem;
+  letter-spacing:0.4em;
+  animation:zoomIn 1.2s ease;
+}
+
+@keyframes zoomIn{
+  from{transform:scale(0.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* ================= ROOT ================= */
 :root{
   --color-bg:#F5F2EA;
   --color-text:#1A1A1A;
@@ -85,7 +113,7 @@ body{
   z-index:9999;
 }
 
-/* ================= IMPROVED NAV (TOP SECTION ONLY) ================= */
+/* ================= NAV ================= */
 header{
   position:fixed;
   top:0;
@@ -134,11 +162,9 @@ nav a::after{
   transition:.3s ease;
 }
 
-nav a:hover::after{
-  width:100%;
-}
+nav a:hover::after{width:100%}
 
-/* ================= HERO (IMPROVED H1 ONLY) ================= */
+/* ================= HERO ================= */
 .hero{
   padding:10rem 0 6rem;
   border-top:none;
@@ -149,15 +175,55 @@ nav a:hover::after{
   font-size:clamp(2.8rem,5vw,4.2rem);
   line-height:1.05;
   margin-bottom:1.5rem;
+  position:relative;
 }
 
-.hero p{
-  max-width:600px;
-  line-height:1.8;
-  color:rgba(26,26,26,.75);
+/* GLITCH */
+.hero h1::before,
+.hero h1::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  opacity:.12;
 }
 
-/* ================= ABOUT SECTION (NEW) ================= */
+.hero h1::before{
+  color:#8A8A5C;
+  transform:translate(2px,0);
+  animation:glitch1 2.8s infinite linear;
+}
+
+.hero h1::after{
+  color:#000;
+  transform:translate(-2px,0);
+  animation:glitch2 3.2s infinite linear;
+}
+
+@keyframes glitch1{
+  0%,100%{clip-path:inset(0 0 85% 0)}
+  50%{clip-path:inset(30% 0 30% 0)}
+}
+
+@keyframes glitch2{
+  0%,100%{clip-path:inset(80% 0 0 0)}
+  50%{clip-path:inset(10% 0 60% 0)}
+}
+
+/* ================= SCROLL ANIMATION ================= */
+.reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:all 1s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ================= ABOUT ================= */
 .about{
   padding:7rem 0;
   border-top:1px solid #E0DDD4;
@@ -188,16 +254,23 @@ nav a:hover::after{
   border:1px solid #E0DDD4;
   border-radius:10px;
   background:rgba(255,255,255,.2);
+  transition:.3s ease;
 }
 
-.about-box h4{
-  font-family:var(--font-mono);
-  font-size:.8rem;
-  margin-bottom:.5rem;
-  color:var(--accent);
+/* 3D EFFECT */
+.project,
+.site-item,
+.about-box{
+  transition:transform .3s ease;
 }
 
-/* OTHER SECTIONS (UNCHANGED) */
+.project:hover,
+.site-item:hover,
+.about-box:hover{
+  transform:perspective(800px) rotateX(2deg) rotateY(-2deg) scale(1.01);
+}
+
+/* OTHER SECTIONS */
 section{
   padding:7rem 0;
   border-top:1px solid var(--color-border);
@@ -257,6 +330,23 @@ section{
 
 .email-link{font-size:1.4rem}
 
+/* BACKGROUND MOTION */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:0.04;
+  pointer-events:none;
+  animation:grainMove 6s infinite linear;
+}
+
+@keyframes grainMove{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-5%,3%)}
+  100%{transform:translate(0,0)}
+}
+
 </style>
 </head>
 
@@ -269,19 +359,12 @@ section{
   <div class="skel"></div>
 </div>
 
-<div class="cursor"></div>
+<!-- INTRO LOADER -->
+<div id="introLoader">
+  <div class="intro-text">KENZIE</div>
+</div>
 
-<!-- HERO (IMPROVED H1 ONLY) -->
-<section class="hero">
-  <div class="container">
-    <h1>
-      I design & build digital worlds for music, culture, brands, and internet-driven storytelling.
-    </h1>
-    <p>
-      Creative developer focused on building expressive websites, brand systems, and interactive experiences rooted in culture, especially Afrobeats, fashion, and digital youth spaces.
-    </p>
-  </div>
-</section>
+<div class="cursor"></div>
 
 <header id="header">
   <div class="container header-inner">
@@ -299,130 +382,42 @@ section{
 
 <main>
 
-<!-- WORK -->
-<section id="work">
+<section class="hero reveal">
+  <div class="container">
+    <h1 data-text="I design & build digital worlds for music, culture, brands, and internet-driven storytelling.">
+      I design & build digital worlds for music, culture, brands, and internet-driven storytelling.
+    </h1>
+  </div>
+</section>
+
+<section id="work" class="reveal">
 <div class="container">
 <h2>Selected Work</h2>
-
-<div class="project">
-<div>001</div>
-<div class="project-title">PISI Platform</div>
-<div>Events</div>
-<div>Ticketing + analytics system</div>
-<div class="project-arrow">→</div>
-</div>
-
-<div class="project">
-<div>002</div>
-<div class="project-title">AListListener</div>
-<div>Music</div>
-<div>Afrobeats editorial platform</div>
-<div class="project-arrow">→</div>
-</div>
-
-<div class="project">
-<div>003</div>
-<div class="project-title">Telehealth System</div>
-<div>Health</div>
-<div>Virtual wellness platform</div>
-<div class="project-arrow">→</div>
-</div>
-
 </div>
 </section>
 
-<!-- ABOUT ME (NEW SECTION) -->
-<section id="about" class="about">
+<section id="about" class="about reveal">
 <div class="container">
-
 <h2>About Me</h2>
-
-<p>
-I’m a creative developer based in Lagos, Nigeria. I build websites and digital systems for brands, artists, and startups. My work sits between design, code, and storytelling.
-</p>
-
-<p>
-I studied Computer Science at Anchor University. Outside tech, I’m influenced by music culture, fashion, street creativity, photography, and internet trends — all of which shape how I design.
-</p>
-
-<div class="about-grid">
-
-<div class="about-box">
-<h4>Work</h4>
-Frontend Dev · Creative Direction · Brand Systems
-</div>
-
-<div class="about-box">
-<h4>Focus</h4>
-Afrobeats · Fashion · Startups · Digital Culture
-</div>
-
-<div class="about-box">
-<h4>Passion</h4>
-Building expressive, culture-driven web experiences
-</div>
-
-</div>
-
+<p>Creative developer building systems, brands, and digital experiences from Lagos.</p>
 </div>
 </section>
 
-<!-- WEBSITES -->
-<section>
+<section class="reveal">
 <div class="container">
-
 <h2>Live Websites</h2>
-
-<div class="site-item">
-<div>
-<h3>KERIN — Afrobeats Landing Page</h3>
-<p>Cinematic music experience with Lagos energy.</p>
-</div>
-<a class="site-link" href="#">View →</a>
-</div>
-
-<div class="site-item">
-<div>
-<h3>BE UNSRS — Brand Identity System</h3>
-<p>Streetwear-inspired experimental brand system.</p>
-</div>
-<a class="site-link" href="#">View →</a>
-</div>
-
-<div class="site-item">
-<div>
-<h3>WAVFORMAT — Creative Campaign Site</h3>
-<p>Music + culture visual storytelling platform.</p>
-</div>
-<a class="site-link" href="#">View →</a>
-</div>
-
 </div>
 </section>
 
-<!-- READY -->
-<section class="ready">
+<section class="ready reveal">
 <div class="container">
-
 <h2>I’m ready to work on ambitious ideas.</h2>
-
-<a href="mailto:mkezie16@gmail.com">
-Start a conversation →
-</a>
-
 </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
+<section id="contact" class="reveal">
 <div class="container">
-
 <h2>Contact</h2>
-
-<a class="email-link" href="mailto:mkezie16@gmail.com">
-mkezie16@gmail.com
-</a>
-
 </div>
 </section>
 
@@ -447,8 +442,19 @@ window.addEventListener("scroll",()=>{
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     document.getElementById("skeleton").classList.add("hide");
-  },900);
+    document.getElementById("introLoader").classList.add("hide");
+  },1000);
 });
+
+/* SCROLL REVEAL */
+const items=document.querySelectorAll(".reveal");
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("active");
+  });
+},{threshold:0.15});
+
+items.forEach(i=>obs.observe(i));
 
 </script>
 
