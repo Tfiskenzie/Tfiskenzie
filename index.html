@@ -27,24 +27,16 @@
   --transition:cubic-bezier(.16,1,.3,1);
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   background:var(--color-bg);
   color:var(--color-text);
   font-family:var(--font-sans);
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-  overflow-x:hidden;
   cursor:none;
+  overflow-x:hidden;
 }
 
 ::selection{
@@ -52,27 +44,20 @@ body{
   color:white;
 }
 
+/* CURSOR */
 .cursor{
-  width:12px;
-  height:12px;
+  width:12px;height:12px;
   border-radius:50%;
   background:var(--accent);
   position:fixed;
-  top:0;
-  left:0;
+  top:0;left:0;
   transform:translate(-50%,-50%);
   pointer-events:none;
   z-index:9999;
-  mix-blend-mode:multiply;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
+/* LAYOUT */
 .container{
-  width:100%;
   max-width:var(--max-width);
   margin:0 auto;
   padding:0 1.5rem;
@@ -83,27 +68,14 @@ section{
   border-top:1px solid var(--color-border);
 }
 
-.fade-in{
-  opacity:0;
-  transform:translateY(30px);
-  transition:
-  opacity .9s var(--transition),
-  transform .9s var(--transition);
-}
-
-.fade-in.is-visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
 .section-label{
   font-family:var(--font-mono);
   font-size:.75rem;
   letter-spacing:.12em;
-  margin-bottom:2rem;
-  color:rgba(26,26,26,.5);
-  display:block;
   text-transform:uppercase;
+  color:rgba(26,26,26,.5);
+  margin-bottom:2rem;
+  display:block;
 }
 
 .section-heading{
@@ -111,19 +83,16 @@ section{
   font-size:clamp(2.5rem,5vw,4rem);
   line-height:1;
   margin-bottom:2rem;
-  letter-spacing:-0.04em;
 }
 
 /* HEADER */
-
 header{
   position:sticky;
   top:0;
-  z-index:1000;
+  background:rgba(245,242,234,.8);
   backdrop-filter:blur(10px);
-  background:rgba(245,242,234,.75);
   border-bottom:1px solid transparent;
-  transition:.3s ease;
+  z-index:1000;
 }
 
 header.scrolled{
@@ -133,43 +102,33 @@ header.scrolled{
 .header-inner{
   height:72px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
   font-family:var(--font-mono);
-  font-size:.85rem;
   letter-spacing:.15em;
 }
 
-nav{
-  display:flex;
-  gap:2rem;
-}
+nav{display:flex;gap:2rem}
 
 nav a{
   position:relative;
-  font-size:.95rem;
 }
 
 nav a::after{
   content:"";
   position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:1px;
+  left:0;bottom:-4px;
+  width:0;height:1px;
   background:var(--color-text);
-  transition:width .4s var(--transition);
+  transition:.3s;
 }
 
-nav a:hover::after{
-  width:100%;
-}
+nav a:hover::after{width:100%}
 
-/* CREATIVE HERO */
-
+/* HERO */
 .creative-hero{
   min-height:100vh;
   display:flex;
@@ -180,8 +139,7 @@ nav a:hover::after{
 }
 
 .creative-grid{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background-image:
   linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
   linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
@@ -189,252 +147,72 @@ nav a:hover::after{
   opacity:.5;
 }
 
-.creative-noise{
-  position:absolute;
-  inset:0;
-  opacity:.04;
-  background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-}
-
-.hero-kicker{
-  font-family:var(--font-mono);
-  font-size:.8rem;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  margin-bottom:1.5rem;
-  color:rgba(26,26,26,.5);
-}
-
 .hero-massive{
   font-family:var(--font-serif);
   font-size:clamp(5rem,11vw,10rem);
   line-height:.88;
   letter-spacing:-0.08em;
-  max-width:1000px;
 }
 
-.hero-massive span{
-  color:var(--accent);
-  font-style:italic;
-}
-
-.hero-bottom{
-  margin-top:4rem;
-  padding-top:1.5rem;
-  border-top:1px solid var(--color-border);
-  display:flex;
-  justify-content:space-between;
-  gap:3rem;
-  flex-wrap:wrap;
-}
-
-.hero-note{
-  max-width:560px;
-  line-height:1.9;
-  color:rgba(26,26,26,.72);
-}
-
-.hero-status{
-  font-family:var(--font-mono);
-  font-size:.8rem;
-  text-transform:uppercase;
-  color:var(--accent);
-}
+.hero-massive span{color:var(--accent)}
 
 /* PROJECTS */
-
-.project-list{
-  display:flex;
-  flex-direction:column;
-}
-
 .project{
   display:grid;
   grid-template-columns:70px 1fr .8fr 2fr auto;
   gap:1rem;
-  align-items:center;
   padding:1.5rem 0;
   border-bottom:1px solid var(--color-border);
 }
 
-.project-index,
-.project-tag{
+.project-index,.project-tag{
   font-family:var(--font-mono);
-  font-size:.78rem;
+  font-size:.75rem;
   color:rgba(26,26,26,.5);
   text-transform:uppercase;
 }
 
-.project-title{
-  font-size:1.1rem;
-}
-
-.project-desc{
-  line-height:1.7;
-  color:rgba(26,26,26,.7);
-  font-size:.96rem;
-}
+.project:hover .project-title{color:var(--accent)}
 
 .project-arrow{
   opacity:0;
-  transform:translateX(-6px);
-  transition:.3s ease;
+  transition:.3s;
   color:var(--accent);
 }
 
 .project:hover .project-arrow{
   opacity:1;
-  transform:translateX(0);
 }
 
-.project:hover .project-title{
-  color:var(--accent);
-}
-
-/* ABOUT */
-
-.about-grid{
+/* FEATURED WORK */
+.feature-project{
   display:grid;
-  grid-template-columns:1.5fr .8fr;
-  gap:4rem;
-}
-
-.about-copy p{
-  margin-bottom:1.5rem;
-  line-height:1.9;
-  color:rgba(26,26,26,.8);
-}
-
-.meta-stack{
-  display:flex;
-  flex-direction:column;
-  gap:1.4rem;
-}
-
-.meta-item{
-  padding-bottom:1rem;
+  grid-template-columns:1.2fr .9fr;
+  gap:3rem;
+  padding-bottom:4rem;
   border-bottom:1px solid var(--color-border);
+  margin-bottom:4rem;
 }
 
-.meta-key{
-  display:block;
-  font-family:var(--font-mono);
-  font-size:.75rem;
-  margin-bottom:.5rem;
-  color:rgba(26,26,26,.5);
-  text-transform:uppercase;
-}
-
-.meta-value{
-  line-height:1.7;
-}
-
-/* BELIEFS */
-
-.belief{
-  padding:2rem 0;
-  border-bottom:1px solid var(--color-border);
-  font-family:var(--font-serif);
-  font-size:clamp(2.5rem,6vw,5rem);
-  line-height:1;
-  letter-spacing:-0.05em;
-}
-
-/* STACK */
-
-.stack-group{
-  margin-bottom:2.5rem;
-}
-
-.stack-group h4{
-  font-family:var(--font-mono);
-  font-size:.8rem;
-  margin-bottom:.8rem;
-  text-transform:uppercase;
-  color:rgba(26,26,26,.5);
-}
-
-.stack-group p{
-  line-height:1.9;
-  color:rgba(26,26,26,.78);
-}
-
-/* WEBSITES */
-
-.site-list{
-  display:flex;
-  flex-direction:column;
-}
-
-.site-item{
-  display:flex;
-  justify-content:space-between;
-  gap:2rem;
-  padding:1.6rem 0;
-  border-bottom:1px solid var(--color-border);
-  transition:.35s ease;
-  flex-wrap:wrap;
-}
-
-.site-item:hover{
-  padding-left:.6rem;
-}
-
-.site-left h3{
-  margin-bottom:.5rem;
-}
-
-.site-left p{
-  max-width:560px;
-  line-height:1.8;
-  color:rgba(26,26,26,.7);
-}
-
-.site-link{
-  font-family:var(--font-mono);
-  font-size:.78rem;
-  text-transform:uppercase;
-  position:relative;
-}
-
-.site-link::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:1px;
-  background:var(--color-text);
-  transition:width .3s ease;
-}
-
-.site-link:hover::after{
+.feature-image img{
   width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 /* READY */
-
 .ready-heading{
   font-family:var(--font-serif);
   font-size:clamp(3rem,7vw,6rem);
   line-height:.95;
-  letter-spacing:-0.05em;
-  margin-bottom:2rem;
-}
-
-.ready-text{
-  max-width:620px;
-  line-height:1.9;
-  color:rgba(26,26,26,.72);
-  margin-bottom:2rem;
 }
 
 .ready-cta{
-  display:inline-flex;
-  align-items:center;
+  display:inline-block;
   padding:1rem 1.5rem;
   border:1px solid var(--color-border);
-  transition:.35s ease;
+  margin-top:2rem;
+  transition:.3s;
 }
 
 .ready-cta:hover{
@@ -443,111 +221,33 @@ nav a:hover::after{
 }
 
 /* CONTACT */
-
-.contact-heading{
-  font-family:var(--font-serif);
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:.95;
-  letter-spacing:-0.05em;
-  margin-bottom:2rem;
-}
-
-.contact-text{
-  max-width:560px;
-  line-height:1.8;
-  color:rgba(26,26,26,.72);
-  margin-bottom:2rem;
-}
-
 .email-link{
-  display:inline-block;
-  position:relative;
   font-size:1.4rem;
-  margin-bottom:3rem;
+  position:relative;
 }
 
 .email-link::after{
   content:"";
   position:absolute;
-  left:0;
-  bottom:-5px;
-  width:100%;
-  height:1px;
+  left:0;bottom:-5px;
+  width:100%;height:1px;
   background:var(--color-text);
   transform:scaleX(0);
   transform-origin:left;
-  transition:transform .35s ease;
+  transition:.3s;
 }
 
 .email-link:hover::after{
   transform:scaleX(1);
 }
 
-.socials{
-  display:flex;
-  gap:2rem;
-  flex-wrap:wrap;
-  margin-bottom:4rem;
-}
-
-.socials a{
-  position:relative;
-}
-
-.socials a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:1px;
-  background:var(--color-text);
-  transition:width .35s ease;
-}
-
-.socials a:hover::after{
-  width:100%;
-}
-
-footer{
-  padding-top:2rem;
-  border-top:1px solid var(--color-border);
-  display:flex;
-  justify-content:space-between;
-  gap:2rem;
-  flex-wrap:wrap;
-  color:rgba(26,26,26,.55);
-  font-size:.9rem;
-}
-
 /* MOBILE */
-
 @media(max-width:768px){
-
-  body{
-    cursor:auto;
-  }
-
-  .cursor{
-    display:none;
-  }
-
-  nav{
-    gap:1rem;
-  }
-
-  .project{
+  .project,
+  .feature-project{
     grid-template-columns:1fr;
   }
-
-  .about-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero-massive{
-    font-size:4.5rem;
-  }
-
+  body{cursor:auto}
 }
 
 </style>
@@ -558,454 +258,154 @@ footer{
 <div class="cursor"></div>
 
 <header id="header">
-
   <div class="container header-inner">
-
-    <a href="#" class="logo">
-      KENZIE
-    </a>
-
+    <div class="logo">KENZIE</div>
     <nav>
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-
   </div>
-
 </header>
 
 <main>
 
 <!-- HERO -->
-
 <section class="creative-hero">
-
   <div class="creative-grid"></div>
-  <div class="creative-noise"></div>
 
   <div class="container">
-
-    <div class="hero-kicker">
-      Creative Developer / Strategist / Storytelling Systems
-    </div>
-
     <h1 class="hero-massive">
       Building digital
-      experiences for
-      culture, music,
-      fashion, and the
-      internet <span>after midnight.</span>
+      systems for
+      culture,
+      music,
+      fashion &
+      Lagos <span>internet energy.</span>
     </h1>
-
-    <div class="hero-bottom">
-
-      <p class="hero-note">
-        Based in Lagos.
-        Working between development,
-        creative direction, digital strategy,
-        internet culture, motion,
-        and visual systems.
-      </p>
-
-      <div class="hero-status">
-        ● Available for freelance & collaborations
-      </div>
-
-    </div>
-
   </div>
+</section>
 
+<!-- FEATURED WORK -->
+<section>
+<div class="container">
+
+<span class="section-label">01 / Featured Work</span>
+
+<h2 class="section-heading">Selected worlds & systems</h2>
+
+<!-- KERIN -->
+<div class="feature-project">
+  <div class="feature-image">
+    <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1200">
+  </div>
+  <div>
+    <h3>KERIN — Afrobeats Experience</h3>
+    <p>Cinematic landing page for Lagos-based Afrofusion artist.</p>
+  </div>
+</div>
+
+<!-- BEUNSRS -->
+<div class="feature-project">
+  <div class="feature-image">
+    <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1200">
+  </div>
+  <div>
+    <h3>BEUNSRS — Brand System</h3>
+    <p>Streetwear identity built outside algorithm culture.</p>
+  </div>
+</div>
+
+<!-- WAVFORMAT -->
+<div class="feature-project">
+  <div class="feature-image">
+    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200">
+  </div>
+  <div>
+    <h3>TheWavFormat — Summer Campaign</h3>
+    <p>Music-driven visual identity + creative production site.</p>
+  </div>
+</div>
+
+</div>
 </section>
 
 <!-- WORK -->
-
 <section id="work">
+<div class="container">
 
-<div class="container fade-in">
+<span class="section-label">02 / Selected Work</span>
 
-<span class="section-label">01 / Selected Work</span>
-
-<h2 class="section-heading">
-Work shaped by culture,
-systems, and momentum.
-</h2>
-
-<div class="project-list">
-
-<article class="project">
+<div class="project">
 <div class="project-index">001</div>
-<div class="project-title">PISI Event Platform</div>
-<div class="project-tag">Events / SaaS</div>
-<div class="project-desc">
-Event management ecosystem for ticketing,
-analytics, promotions, cashback systems,
-and audience engagement.
-</div>
+<div class="project-title">PISI Platform</div>
+<div class="project-tag">Events</div>
+<div class="project-desc">Event ecosystem for ticketing & analytics</div>
 <div class="project-arrow">→</div>
-</article>
+</div>
 
-<article class="project">
+<div class="project">
 <div class="project-index">002</div>
 <div class="project-title">AListListener</div>
-<div class="project-tag">Music / Culture</div>
-<div class="project-desc">
-Editorial music identity focused on afrobeats,
-creative discovery, and artist storytelling.
-</div>
+<div class="project-tag">Music</div>
+<div class="project-desc">Afrobeats editorial platform</div>
 <div class="project-arrow">→</div>
-</article>
+</div>
 
-<article class="project">
+<div class="project">
 <div class="project-index">003</div>
-<div class="project-title">Telehealth Wellness Platform</div>
-<div class="project-tag">Health / B2B</div>
-<div class="project-desc">
-UX strategy and product architecture
-for virtual wellness systems.
-</div>
+<div class="project-title">Gadget Store</div>
+<div class="project-tag">E-Commerce</div>
+<div class="project-desc">Tech retail system</div>
 <div class="project-arrow">→</div>
-</article>
-
 </div>
 
 </div>
-
-</section>
-
-<!-- ABOUT -->
-
-<section id="about">
-
-<div class="container fade-in">
-
-<span class="section-label">02 / About</span>
-
-<div class="about-grid">
-
-<div class="about-copy">
-
-<h2 class="section-heading">
-It started with curiosity.
-</h2>
-
-<p>
-First it was websites.
-Then storytelling.
-Then systems.
-Then the realization that
-most brands are trying
-to solve communication problems.
-</p>
-
-<p>
-I studied Computer Science at Anchor University.
-Somewhere between development,
-internet culture, gaming,
-photography, fashion,
-and creative direction —
-my work stopped feeling strictly technical.
-</p>
-
-<p>
-Now I build digital experiences
-for brands, artists, startups,
-and people trying to create
-something memorable.
-</p>
-
-</div>
-
-<aside class="meta-stack">
-
-<div class="meta-item">
-<span class="meta-key">Role</span>
-<span class="meta-value">
-Frontend Developer · Strategist · Creative Director
-</span>
-</div>
-
-<div class="meta-item">
-<span class="meta-key">Based</span>
-<span class="meta-value">
-Lagos, Nigeria
-</span>
-</div>
-
-<div class="meta-item">
-<span class="meta-key">Focus</span>
-<span class="meta-value">
-Culture, entertainment,
-fashion, startups,
-digital ecosystems
-</span>
-</div>
-
-</aside>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- PHILOSOPHY -->
-
-<section>
-
-<div class="container fade-in">
-
-<span class="section-label">03 / Philosophy</span>
-
-<div class="belief">
-Ask before you build.
-</div>
-
-<div class="belief">
-Clarity survives trends.
-</div>
-
-<div class="belief">
-Design should expect change.
-</div>
-
-<div class="belief">
-Attention is earned slowly.
-</div>
-
-</div>
-
-</section>
-
-<!-- STACK -->
-
-<section>
-
-<div class="container fade-in">
-
-<span class="section-label">04 / Stack</span>
-
-<h2 class="section-heading">
-Enough tools to build.
-Enough restraint to edit.
-</h2>
-
-<div class="stack-group">
-<h4>Design Tools</h4>
-<p>
-Figma, Photoshop,
-Premiere Pro, Lightroom,
-visual systems, storytelling
-</p>
-</div>
-
-<div class="stack-group">
-<h4>Frontend</h4>
-<p>
-HTML, CSS, JavaScript,
-responsive systems,
-motion principles
-</p>
-</div>
-
-<div class="stack-group">
-<h4>Backend</h4>
-<p>
-PHP, MySQL,
-Paystack integrations,
-CMS workflows
-</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- WEBSITES -->
-
-<section>
-
-<div class="container fade-in">
-
-<span class="section-label">05 / Live Websites</span>
-
-<h2 class="section-heading">
-Selected websites,
-systems, and digital experiences.
-</h2>
-
-<div class="site-list">
-
-<article class="site-item">
-
-<div class="site-left">
-<h3>PISI Integrated Services</h3>
-<p>
-Event ecosystem focused on ticketing,
-audience engagement,
-analytics, and creator experiences.
-</p>
-</div>
-
-<a class="site-link" href="#" target="_blank">
-Visit Website →
-</a>
-
-</article>
-
-<article class="site-item">
-
-<div class="site-left">
-<h3>AListListener</h3>
-<p>
-Editorial-driven music and entertainment platform
-centered around afrobeats
-and artist discovery.
-</p>
-</div>
-
-<a class="site-link" href="#" target="_blank">
-Visit Website →
-</a>
-
-</article>
-
-<article class="site-item">
-
-<div class="site-left">
-<h3>Gadget Commerce Experience</h3>
-<p>
-E-commerce ecosystem for gaming,
-mobile devices,
-and tech accessories.
-</p>
-</div>
-
-<a class="site-link" href="#" target="_blank">
-Visit Website →
-</a>
-
-</article>
-
-</div>
-
-</div>
-
 </section>
 
 <!-- READY -->
-
 <section>
+<div class="container">
 
-<div class="container fade-in">
+<span class="section-label">03 / Availability</span>
 
-<span class="section-label">06 / Availability</span>
+<h2 class="ready-heading">I’m ready to work on ambitious ideas.</h2>
 
-<h2 class="ready-heading">
-I’m ready to work
-on ambitious ideas.
-</h2>
-
-<p class="ready-text">
-Looking to collaborate with brands,
-artists, startups, agencies,
-and teams building things
-with cultural relevance
-and strong storytelling.
-</p>
-
-<a
-href="mailto:mkezie16@gmail.com?subject=Let's%20Work"
-class="ready-cta"
->
+<a class="ready-cta" href="mailto:mkezie16@gmail.com?subject=Work%20Inquiry">
 Start a conversation →
 </a>
 
 </div>
-
 </section>
 
 <!-- CONTACT -->
-
 <section id="contact">
+<div class="container">
 
-<div class="container fade-in">
+<span class="section-label">04 / Contact</span>
 
-<span class="section-label">07 / Contact</span>
+<h2 class="ready-heading">Let’s build something meaningful.</h2>
 
-<h2 class="contact-heading">
-Let’s build something
-that lasts longer
-than attention spans.
-</h2>
-
-<p class="contact-text">
-Open to collaborations across music,
-fashion, technology,
-culture, and digital products.
-</p>
-
-<a
-href="mailto:mkezie16@gmail.com?subject=Hello"
-class="email-link"
->
-Send a message!
+<a class="email-link" href="mailto:mkezie16@gmail.com">
+mkezie16@gmail.com
 </a>
 
-<div class="socials">
-<a href="#">LinkedIn</a>
-<a href="https://github.com/Tfiskenzie">GitHub</a>
-<a href="https://instagram.com/tfiskenzie">Instagram</a>
 </div>
-
-<footer>
-<span>© 2026 Onyedika Okezie Emmanuel</span>
-<span>Handcrafted with intention.</span>
-</footer>
-
-</div>
-
 </section>
 
 </main>
 
 <script>
 
-/* HEADER */
-
-const header = document.getElementById('header');
-
-window.addEventListener('scroll', () => {
-  if(window.scrollY > 10){
-    header.classList.add('scrolled');
-  }else{
-    header.classList.remove('scrolled');
-  }
+const cursor=document.querySelector(".cursor");
+window.addEventListener("mousemove",(e)=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
 });
 
-/* OBSERVER */
-
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('is-visible');
-    }
-  });
-},{
-  threshold:.15
-});
-
-document.querySelectorAll('.fade-in').forEach(el=>{
-  observer.observe(el);
-});
-
-/* CURSOR */
-
-const cursor = document.querySelector('.cursor');
-
-window.addEventListener('mousemove',(e)=>{
-  cursor.style.top = e.clientY + 'px';
-  cursor.style.left = e.clientX + 'px';
+const header=document.getElementById("header");
+window.addEventListener("scroll",()=>{
+  header.classList.toggle("scrolled",window.scrollY>10);
 });
 
 </script>
