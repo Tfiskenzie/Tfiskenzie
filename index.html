@@ -59,9 +59,6 @@
   --font-serif:"DM Serif Display", serif;
   --font-sans:"DM Sans", sans-serif;
   --font-mono:"IBM Plex Mono", monospace;
-
-  --max-width:960px;
-  --transition:cubic-bezier(.16,1,.3,1);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -88,15 +85,60 @@ body{
   z-index:9999;
 }
 
-/* LAYOUT (UNCHANGED) */
-.container{max-width:960px;margin:0 auto;padding:0 1.5rem}
-
-section{
-  padding:7rem 0;
-  border-top:1px solid var(--color-border);
+/* ================= IMPROVED NAV (TOP SECTION ONLY) ================= */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  backdrop-filter:blur(12px);
+  background:rgba(245,242,234,.75);
+  border-bottom:1px solid #E0DDD4;
 }
 
-/* HERO (NEW ADDITION) */
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+}
+
+.logo{
+  font-family:var(--font-serif);
+  font-size:1.1rem;
+  letter-spacing:0.08em;
+}
+
+nav{
+  display:flex;
+  gap:28px;
+  font-family:var(--font-mono);
+  font-size:.85rem;
+}
+
+nav a{
+  text-decoration:none;
+  color:inherit;
+  position:relative;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0%;
+  height:1px;
+  background:var(--accent);
+  transition:.3s ease;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* ================= HERO (IMPROVED H1 ONLY) ================= */
 .hero{
   padding:10rem 0 6rem;
   border-top:none;
@@ -104,8 +146,8 @@ section{
 
 .hero h1{
   font-family:var(--font-serif);
-  font-size:clamp(2.5rem,5vw,4rem);
-  line-height:1;
+  font-size:clamp(2.8rem,5vw,4.2rem);
+  line-height:1.05;
   margin-bottom:1.5rem;
 }
 
@@ -115,7 +157,58 @@ section{
   color:rgba(26,26,26,.75);
 }
 
-/* PROJECTS (UNCHANGED) */
+/* ================= ABOUT SECTION (NEW) ================= */
+.about{
+  padding:7rem 0;
+  border-top:1px solid #E0DDD4;
+}
+
+.about h2{
+  font-family:var(--font-serif);
+  font-size:2.5rem;
+  margin-bottom:1rem;
+}
+
+.about p{
+  max-width:750px;
+  line-height:1.8;
+  color:rgba(26,26,26,.75);
+  margin-bottom:1rem;
+}
+
+.about-grid{
+  margin-top:2rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+}
+
+.about-box{
+  padding:1.2rem;
+  border:1px solid #E0DDD4;
+  border-radius:10px;
+  background:rgba(255,255,255,.2);
+}
+
+.about-box h4{
+  font-family:var(--font-mono);
+  font-size:.8rem;
+  margin-bottom:.5rem;
+  color:var(--accent);
+}
+
+/* OTHER SECTIONS (UNCHANGED) */
+section{
+  padding:7rem 0;
+  border-top:1px solid var(--color-border);
+}
+
+.container{
+  max-width:960px;
+  margin:0 auto;
+  padding:0 1.5rem;
+}
+
 .project{
   display:grid;
   grid-template-columns:70px 1fr .8fr 2fr auto;
@@ -126,11 +219,9 @@ section{
 
 .project-title{font-size:1.1rem}
 .project:hover .project-title{color:var(--accent)}
-
 .project-arrow{opacity:0;transition:.3s}
 .project:hover .project-arrow{opacity:1}
 
-/* WEBSITE LIST */
 .site-item{
   display:flex;
   justify-content:space-between;
@@ -145,7 +236,6 @@ section{
   font-size:.78rem;
 }
 
-/* READY SECTION */
 .ready{
   padding:8rem 0;
 }
@@ -165,7 +255,6 @@ section{
   border-bottom:1px solid var(--color-text);
 }
 
-/* CONTACT (UNCHANGED) */
 .email-link{font-size:1.4rem}
 
 </style>
@@ -182,16 +271,14 @@ section{
 
 <div class="cursor"></div>
 
-<!-- ================= HERO (NEW SECTION) ================= -->
+<!-- HERO (IMPROVED H1 ONLY) -->
 <section class="hero">
   <div class="container">
     <h1>
-      Creative Developer building digital systems for music, culture & Lagos internet energy.
+      I design & build digital worlds for music, culture, brands, and internet-driven storytelling.
     </h1>
     <p>
-      I design and build websites, creative brand systems, and digital experiences
-      for artists, startups, and culture-driven brands. From Afrobeats landing pages
-      to event platforms and experimental web storytelling.
+      Creative developer focused on building expressive websites, brand systems, and interactive experiences rooted in culture, especially Afrobeats, fashion, and digital youth spaces.
     </p>
   </div>
 </section>
@@ -215,7 +302,6 @@ section{
 <!-- WORK -->
 <section id="work">
 <div class="container">
-
 <h2>Selected Work</h2>
 
 <div class="project">
@@ -245,7 +331,43 @@ section{
 </div>
 </section>
 
-<!-- WEBSITES (UPDATED WITH YOUR PROJECTS) -->
+<!-- ABOUT ME (NEW SECTION) -->
+<section id="about" class="about">
+<div class="container">
+
+<h2>About Me</h2>
+
+<p>
+I’m a creative developer based in Lagos, Nigeria. I build websites and digital systems for brands, artists, and startups. My work sits between design, code, and storytelling.
+</p>
+
+<p>
+I studied Computer Science at Anchor University. Outside tech, I’m influenced by music culture, fashion, street creativity, photography, and internet trends — all of which shape how I design.
+</p>
+
+<div class="about-grid">
+
+<div class="about-box">
+<h4>Work</h4>
+Frontend Dev · Creative Direction · Brand Systems
+</div>
+
+<div class="about-box">
+<h4>Focus</h4>
+Afrobeats · Fashion · Startups · Digital Culture
+</div>
+
+<div class="about-box">
+<h4>Passion</h4>
+Building expressive, culture-driven web experiences
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- WEBSITES -->
 <section>
 <div class="container">
 
@@ -254,7 +376,7 @@ section{
 <div class="site-item">
 <div>
 <h3>KERIN — Afrobeats Landing Page</h3>
-<p>Cinematic artist experience blending Lagos nightlife, music identity, and motion design.</p>
+<p>Cinematic music experience with Lagos energy.</p>
 </div>
 <a class="site-link" href="#">View →</a>
 </div>
@@ -262,7 +384,7 @@ section{
 <div class="site-item">
 <div>
 <h3>BE UNSRS — Brand Identity System</h3>
-<p>Experimental streetwear & creative brand system with bold visual storytelling.</p>
+<p>Streetwear-inspired experimental brand system.</p>
 </div>
 <a class="site-link" href="#">View →</a>
 </div>
@@ -270,7 +392,7 @@ section{
 <div class="site-item">
 <div>
 <h3>WAVFORMAT — Creative Campaign Site</h3>
-<p>Music + production collective website focused on summer visuals and culture drops.</p>
+<p>Music + culture visual storytelling platform.</p>
 </div>
 <a class="site-link" href="#">View →</a>
 </div>
@@ -278,19 +400,13 @@ section{
 </div>
 </section>
 
-<!-- READY TO WORK -->
+<!-- READY -->
 <section class="ready">
 <div class="container">
 
-<h2>
-I’m ready to work on ambitious ideas.
-</h2>
+<h2>I’m ready to work on ambitious ideas.</h2>
 
-<p>
-Let’s build something cultural, experimental, and unforgettable.
-</p>
-
-<a href="mailto:mkezie16@gmail.com?subject=Work%20Inquiry">
+<a href="mailto:mkezie16@gmail.com">
 Start a conversation →
 </a>
 
