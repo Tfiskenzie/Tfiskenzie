@@ -13,6 +13,20 @@
 
 <style>
 
+/* ================= PAGE TRANSITION ================= */
+body{
+  opacity:0;
+  transform:translateY(10px);
+  animation:pageIn .8s ease forwards;
+}
+
+@keyframes pageIn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 /* ================= KENZIE LOADER ================= */
 #loader{
   position:fixed;
@@ -273,6 +287,54 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 
 .email-link{font-size:1.4rem}
 
+/* ================= NEW SECTION STYLES ================= */
+
+.section-title{
+  font-family:var(--font-mono);
+  font-size:.75rem;
+  letter-spacing:.2em;
+  color:rgba(26,26,26,.5);
+  margin-bottom:1.5rem;
+}
+
+/* WORKED IN SECTION */
+.worked-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+}
+
+.worked-card{
+  border:1px solid var(--color-border);
+  padding:1.2rem;
+  transition:.3s ease;
+}
+
+.worked-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+}
+
+/* SKILLS */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.skill{
+  border:1px solid var(--color-border);
+  padding:.6rem 1rem;
+  font-family:var(--font-mono);
+  font-size:.75rem;
+  transition:.3s ease;
+}
+
+.skill:hover{
+  background:var(--accent);
+  color:#fff;
+}
+
 </style>
 </head>
 
@@ -338,30 +400,62 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 </div>
 </section>
 
+<!-- ABOUT (UPDATED) -->
 <section id="about" class="reveal">
 <div class="container">
 
 <h2>About Me</h2>
 
 <p>
-I am a Creative Developer based in Lagos, Nigeria. I studied Computer Science at Anchor University and specialize in building digital systems, web platforms, and brand experiences.
+Creative Developer based in Lagos, Nigeria. Computer Science graduate from Anchor University.
+Focused on building digital systems, brand experiences, and culture-driven web products.
 </p>
 
 <p>
-My work sits at the intersection of development, design, and culture — influenced by Afrobeats, fashion, street culture, photography, and internet communities.
+Work spans events (PISI Platform), music media (AListListener), e-commerce systems, telehealth products, and creative brand direction.
+Previously interned at SLOT Systems Limited.
 </p>
 
-<p>
-I have worked on event management systems (PISI Platform), music editorial platforms (AListListener), telehealth systems, e-commerce experiences, and creative brand campaigns.
-</p>
+</div>
+</section>
 
-<p>
-I previously interned at SLOT Systems Limited and have built independent digital products and client projects across Nigeria’s creative and tech space.
-</p>
+<!-- WORKED IN -->
+<section class="reveal">
+<div class="container">
 
-<p>
-I focus on building scalable systems that combine storytelling, usability, and cultural relevance.
-</p>
+<div class="section-title">WHAT I’VE WORKED IN</div>
+
+<div class="worked-grid">
+
+<div class="worked-card">Event Platforms & Ticketing Systems</div>
+<div class="worked-card">Music / Afrobeats Media</div>
+<div class="worked-card">E-commerce Systems</div>
+<div class="worked-card">Telehealth & Wellness Platforms</div>
+<div class="worked-card">Creative Brand Campaigns</div>
+<div class="worked-card">Digital Marketing Systems</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- SKILLS -->
+<section class="reveal">
+<div class="container">
+
+<div class="section-title">SKILLS & PROFICIENCY</div>
+
+<div class="skills">
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">Frontend Development</div>
+<div class="skill">UI/UX</div>
+<div class="skill">Brand Strategy</div>
+<div class="skill">Paystack Integration</div>
+<div class="skill">Creative Direction</div>
+<div class="skill">Motion Thinking</div>
+</div>
 
 </div>
 </section>
