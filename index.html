@@ -1,401 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyPortfolio</title>
 
-<title>Onyedika Okezie — Creative Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --color-bg:#F5F2EA;
+      --color-text:#1A1A1A;
+      --color-border:#E0DDD4;
+      --accent:#8A8A5C;
 
-<style>
+      --font-serif:"DM Serif Display", serif;
+      --font-sans:"DM Sans", sans-serif;
+      --font-mono:"IBM Plex Mono", monospace;
 
-/* ================= KENZIE LOADER ================= */
-#loader{
-  position:fixed;
-  inset:0;
-  background:#F5F2EA;
-  z-index:10000;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:var(--font-serif);
-  font-size:2rem;
-  letter-spacing:0.3em;
-  animation:fadeOutLoader 1s ease forwards;
-  animation-delay:1.2s;
-}
+      --max-width:860px;
+      --transition:cubic-bezier(.16,1,.3,1);
+    }
 
-@keyframes fadeOutLoader{
-  to{
-    opacity:0;
-    visibility:hidden;
-  }
-}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
 
-/* ================= BACKGROUND MOTION ================= */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at 20% 20%, rgba(138,138,92,.08), transparent 40%),
-             radial-gradient(circle at 80% 60%, rgba(26,26,26,.05), transparent 40%);
-  animation:floatBg 12s infinite alternate ease-in-out;
-  z-index:-1;
-}
+    html{
+      scroll-behavior:smooth;
+    }
 
-@keyframes floatBg{
-  from{transform:translate3d(0,0,0) scale(1);}
-  to{transform:translate3d(-20px,20px,0) scale(1.05);}
-}
+    body{
+      background:var(--color-bg);
+      color:var(--color-text);
+      font-family:var(--font-sans);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      cursor:none;
+    }
 
-/* ================= HERO FX (GLITCH + FADE IN) ================= */
-.hero h1{
-  position:relative;
-  animation:heroFade 1.2s ease forwards;
-  opacity:0;
-}
+    ::selection{
+      background:var(--accent);
+      color:var(--color-bg);
+    }
 
-@keyframes heroFade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
+    .cursor{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--accent);
+      position:fixed;
+      top:0;
+      left:0;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%, -50%);
+      transition:transform .08s linear;
+      mix-blend-mode:multiply;
+    }
 
-/* glitch overlay (does NOT change text) */
-.hero h1::after{
-  content:attr(data-text);
-  position:absolute;
-  left:2px;
-  top:0;
-  color:rgba(138,138,92,.3);
-  clip-path:inset(0 0 50% 0);
-  animation:glitch 2s infinite linear alternate;
-}
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
 
-@keyframes glitch{
-  0%{transform:translate(0);}
-  20%{transform:translate(-1px,1px);}
-  40%{transform:translate(1px,-1px);}
-  60%{transform:translate(-2px,1px);}
-  80%{transform:translate(1px,2px);}
-  100%{transform:translate(0);}
-}
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 1.5rem;
+    }
 
-/* ================= SCROLL ANIMATION ================= */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s cubic-bezier(.16,1,.3,1);
-}
+    section{
+      padding:6rem 0;
+      border-top:1px solid var(--color-border);
+    }
 
-.reveal.show{
-  opacity:1;
-  transform:translateY(0);
-}
+    .section-label{
+      font-family:var(--font-mono);
+      font-size:.75rem;
+      letter-spacing:.12em;
+      margin-bottom:2rem;
+      color:rgba(26,26,26,.55);
+      display:block;
+    }
 
-/* ================= CINEMATIC SCROLL ================= */
-section{
-  will-change:transform;
-}
+    .section-heading{
+      font-family:var(--font-serif);
+      font-size:clamp(2rem,4vw,3rem);
+      line-height:1;
+      margin-bottom:2rem;
+      font-weight:400;
+    }
 
-/* ================= KEEP ALL YOUR ORIGINAL CSS BELOW ================= */
+    .fade-in{opacity:0;transform:translateY(24px);transition:opacity .9s var(--transition),transform .9s var(--transition);}
+    .fade-in.is-visible{opacity:1;transform:translateY(0);}
 
-:root{
-  --color-bg:#F5F2EA;
-  --color-text:#1A1A1A;
-  --color-border:#E0DDD4;
-  --accent:#8A8A5C;
+    header{position:sticky;top:0;z-index:1000;backdrop-filter:blur(4px);background:rgba(245,242,234,.75);transition:border-color .3s ease;border-bottom:1px solid transparent;}
+    header.scrolled{border-color:var(--color-border);}
 
-  --font-serif:"DM Serif Display", serif;
-  --font-sans:"DM Sans", sans-serif;
-  --font-mono:"IBM Plex Mono", monospace;
-}
+    .header-inner{height:72px;display:flex;align-items:center;justify-content:space-between;}
 
-*{margin:0;padding:0;box-sizing:border-box}
+    .logo{font-family:var(--font-mono);font-size:.9rem;letter-spacing:.12em;}
 
-html{scroll-behavior:smooth}
+    nav{display:flex;gap:2rem;}
+    nav a{position:relative;font-size:.95rem;}
 
-body{
-  background:var(--color-bg);
-  color:var(--color-text);
-  font-family:var(--font-sans);
-  overflow-x:hidden;
-  cursor:none;
-}
+    nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0%;height:1px;background:var(--color-text);transition:width .4s var(--transition);}
+    nav a:hover::after{width:100%;}
 
-.cursor{
-  width:12px;height:12px;
-  border-radius:50%;
-  background:var(--accent);
-  position:fixed;
-  top:0;left:0;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  z-index:9999;
-}
+    .hero{min-height:100vh;display:flex;align-items:center;border-top:none;}
 
-/* NAV (UNCHANGED) */
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:1000;
-  backdrop-filter:blur(12px);
-  background:rgba(245,242,234,.75);
-  border-bottom:1px solid #E0DDD4;
-}
+    .hero-title{
+      font-family:var(--font-serif);
+      font-size:clamp(4rem,8vw,8rem);
+      line-height:.94;
+      letter-spacing:-0.04em;
+      margin-bottom:2rem;
+    }
 
-.header-inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 40px;
-}
+    .hero-sub{font-size:1rem;line-height:1.7;max-width:640px;margin-bottom:3rem;color:rgba(26,26,26,.75);}
+    .availability{color:var(--accent);}
 
-.logo{
-  font-family:var(--font-serif);
-}
+    .meta-row{border-top:1px solid var(--color-border);padding-top:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:rgba(26,26,26,.55);}
 
-nav{
-  display:flex;
-  gap:28px;
-  font-family:var(--font-mono);
-  font-size:.85rem;
-}
+    .project-list{display:flex;flex-direction:column;}
 
-nav a{
-  text-decoration:none;
-  color:inherit;
-  position:relative;
-}
+    .project{display:grid;grid-template-columns:60px 1.2fr .8fr 2fr auto;gap:1rem;align-items:center;padding:1.4rem 0;border-bottom:1px solid var(--color-border);transition:all .4s var(--transition);}
 
-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:1px;
-  background:var(--accent);
-  transition:.3s ease;
-}
+    .project-title{font-size:1.1rem;transition:color .3s ease;}
+    .project-arrow{opacity:0;transform:translateX(-6px);transition:all .3s ease;color:var(--accent);}
 
-nav a:hover::after{
-  width:100%;
-}
+    .project:hover .project-title{color:var(--accent);}
+    .project:hover .project-arrow{opacity:1;transform:translateX(0);}
 
-/* HERO (UNCHANGED STRUCTURE) */
-.hero{
-  padding:10rem 0 6rem;
-  border-top:none;
-}
+    .project-index,.project-tag{font-family:var(--font-mono);font-size:.78rem;color:rgba(26,26,26,.5);text-transform:uppercase;}
 
-.hero h1{
-  font-family:var(--font-serif);
-  font-size:clamp(2.8rem,5vw,4.2rem);
-  line-height:1.05;
-  margin-bottom:1.5rem;
-}
+    .project-desc{color:rgba(26,26,26,.7);line-height:1.6;font-size:.95rem;}
 
-.hero p{
-  max-width:600px;
-  line-height:1.8;
-  color:rgba(26,26,26,.75);
-}
+    .about-grid{display:grid;grid-template-columns:1.5fr .8fr;gap:4rem;}
 
-/* KEEP EVERYTHING ELSE EXACTLY SAME */
-section{padding:7rem 0;border-top:1px solid var(--color-border)}
-.container{max-width:960px;margin:0 auto;padding:0 1.5rem}
+    .about-copy p{margin-bottom:1.6rem;line-height:1.9;font-size:1.04rem;color:rgba(26,26,26,.82);}
 
-.project{
-  display:grid;
-  grid-template-columns:70px 1fr .8fr 2fr auto;
-  gap:1rem;
-  padding:1.5rem 0;
-  border-bottom:1px solid var(--color-border);
-}
+    .meta-stack{display:flex;flex-direction:column;gap:1.4rem;}
 
-.project-title{font-size:1.1rem}
-.project:hover .project-title{color:var(--accent)}
-.project-arrow{opacity:0;transition:.3s}
-.project:hover .project-arrow{opacity:1}
+    .meta-item{border-bottom:1px solid var(--color-border);padding-bottom:1rem;}
 
-.site-item{
-  display:flex;
-  justify-content:space-between;
-  gap:2rem;
-  padding:1.6rem 0;
-  border-bottom:1px solid var(--color-border);
-  flex-wrap:wrap;
-}
+    .meta-key{font-family:var(--font-mono);font-size:.75rem;margin-bottom:.4rem;color:rgba(26,26,26,.5);text-transform:uppercase;}
 
-.site-link{
-  font-family:var(--font-mono);
-  font-size:.78rem;
-}
+    .meta-value{font-size:1rem;line-height:1.6;}
 
-.ready{
-  padding:8rem 0;
-}
+    .belief{padding:2rem 0;border-bottom:1px solid var(--color-border);font-family:var(--font-serif);font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:-0.04em;}
 
-.ready h2{
-  font-family:var(--font-serif);
-  font-size:clamp(3rem,7vw,5rem);
-  line-height:.95;
-}
+    .stack-group{margin-bottom:2.5rem;}
+    .stack-group h4{font-family:var(--font-mono);font-size:.8rem;margin-bottom:.9rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.5);}
+    .stack-group p{line-height:1.9;font-size:1rem;color:rgba(26,26,26,.82);}
 
-.ready a{
-  display:inline-block;
-  margin-top:2rem;
-  font-size:1.2rem;
-  text-decoration:none;
-  color:inherit;
-  border-bottom:1px solid var(--color-text);
-}
+    .writing-list{display:flex;flex-direction:column;}
 
-.email-link{font-size:1.4rem}
+    .writing-item{display:grid;grid-template-columns:120px 1fr auto;gap:1rem;padding:1.2rem 0;border-bottom:1px solid var(--color-border);}
 
-</style>
+    .writing-date{font-family:var(--font-mono);font-size:.75rem;color:rgba(26,26,26,.5);}
+    .writing-title{transition:color .3s ease;}
+    .writing-item:hover .writing-title{color:var(--accent);}
+
+    .contact-heading{font-family:var(--font-serif);font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-0.05em;margin-bottom:2rem;}
+
+    .contact-text{max-width:560px;line-height:1.8;color:rgba(26,26,26,.75);margin-bottom:3rem;}
+
+    .email-link{font-size:1.4rem;display:inline-block;position:relative;margin-bottom:3rem;}
+
+    .email-link::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--color-text);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--transition);}
+    .email-link:hover::after{transform:scaleX(1);}
+
+    .socials{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:4rem;}
+
+    .socials a::after{content:"";position:absolute;left:0;bottom:-4px;width:0%;height:1px;background:var(--color-text);transition:width .3s ease;}
+    .socials a:hover::after{width:100%;}
+
+    footer{padding:2rem 0 4rem;border-top:1px solid var(--color-border);display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;font-size:.9rem;color:rgba(26,26,26,.55);}
+  </style>
 </head>
 
 <body>
 
-<!-- ================= KENZIE LOADER ================= -->
-<div id="loader">KENZIE</div>
-
 <div class="cursor"></div>
-
-<!-- HERO (UNCHANGED CONTENT) -->
-<section class="hero">
-  <div class="container">
-    <h1 data-text="I design & build digital worlds for music, culture, brands, and internet-driven storytelling.">
-      I design & build digital worlds for music, culture, brands, and internet-driven storytelling.
-    </h1>
-
-    <p>
-      Creative developer focused on building expressive websites, brand systems, and interactive experiences rooted in culture, especially Afrobeats, fashion, and digital youth spaces.
-    </p>
-  </div>
-</section>
 
 <header id="header">
   <div class="container header-inner">
-    <a class="logo">KENZIE</a>
+
+    <a href="#" class="logo">KENZIE</a>
+
     <nav>
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+
   </div>
 </header>
 
 <main>
 
-<!-- EVERYTHING ELSE UNTOUCHED -->
+<section class="hero">
+  <div class="container hero-inner">
 
-<section id="work" class="reveal">
-<div class="container">
-<h2>Selected Work</h2>
+    <h1 class="hero-title">
+      <span class="hero-line"><span>Designing systems</span></span>
+      <span class="hero-line"><span>that feel alive.</span></span>
+      <span class="hero-line"><span>Built for culture.</span></span>
+    </h1>
 
-<div class="project">
-<div>001</div>
-<div class="project-title">PISI Platform</div>
-<div>Events</div>
-<div>Ticketing + analytics system</div>
-<div class="project-arrow">→</div>
-</div>
+    <p class="hero-sub fade-in">
+      I build expressive digital experiences where design, code, and storytelling meet.
+      From music platforms to brand systems and experimental web experiences rooted in internet culture.
+      <br><br>
+      <span class="availability">● Open to selective collaborations</span>
+    </p>
 
-<div class="project">
-<div>002</div>
-<div class="project-title">AListListener</div>
-<div>Music</div>
-<div>Afrobeats editorial platform</div>
-<div class="project-arrow">→</div>
-</div>
+    <div class="meta-row fade-in">
+      <div>Onyedika Okezie Emmanuel</div>
+      <div>Creative Developer</div>
+      <div>Lagos, Nigeria.</div>
+      <div>2026</div>
+    </div>
 
-<div class="project">
-<div>003</div>
-<div class="project-title">Telehealth System</div>
-<div>Health</div>
-<div>Virtual wellness platform</div>
-<div class="project-arrow">→</div>
-</div>
-
-</div>
+  </div>
 </section>
 
-<section id="about" class="reveal">
-<div class="container">
-<h2>About Me</h2>
-<p>I build digital systems and creative brands rooted in culture and storytelling.</p>
-</div>
+<section id="work">
+  <div class="container fade-in">
+
+    <span class="section-label">01 / Selected Work</span>
+
+    <h2 class="section-heading">
+      Work shaped by systems, storytelling, and culture.
+    </h2>
+
+    <div class="project-list">
+
+      <article class="project">
+        <div class="project-index">001</div>
+        <div class="project-title">PISI Event Platform</div>
+        <div class="project-tag">Events / SaaS</div>
+        <div class="project-desc">
+          A scalable event infrastructure for ticketing, analytics, cashback systems,
+          and audience engagement tools.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+      <article class="project">
+        <div class="project-index">002</div>
+        <div class="project-title">AListListener</div>
+        <div class="project-tag">Music / Culture</div>
+        <div class="project-desc">
+          A digital music editorial platform focused on afrobeats discovery,
+          storytelling, and artist visibility.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+      <article class="project">
+        <div class="project-index">003</div>
+        <div class="project-title">Telehealth Wellness Platform</div>
+        <div class="project-tag">Health / B2B</div>
+        <div class="project-desc">
+          A virtual healthcare ecosystem connecting companies, hospitals,
+          and insurance systems through digital care flows.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+      <article class="project">
+        <div class="project-index">004</div>
+        <div class="project-title">Streetwear Campaign Direction</div>
+        <div class="project-tag">Fashion / Creative</div>
+        <div class="project-desc">
+          Cinematic visual direction blending fashion, street culture,
+          and narrative-driven branding.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+      <article class="project">
+        <div class="project-index">005</div>
+        <div class="project-title">Gadget Commerce Experience</div>
+        <div class="project-tag">E-Commerce</div>
+        <div class="project-desc">
+          A full shopping experience for tech products with smooth UX,
+          cart flow, and product storytelling.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+      <article class="project">
+        <div class="project-index">006</div>
+        <div class="project-title">Creative Brand Systems</div>
+        <div class="project-tag">Strategy / Identity</div>
+        <div class="project-desc">
+          End-to-end branding systems for creators, startups,
+          and culture-driven businesses.
+        </div>
+        <div class="project-arrow">→</div>
+      </article>
+
+    </div>
+
+  </div>
 </section>
 
-<section class="reveal">
-<div class="container">
-<h2>Live Websites</h2>
-<div class="site-item"><div><h3>KERIN</h3></div><a class="site-link">View →</a></div>
-<div class="site-item"><div><h3>BE UNSRS</h3></div><a class="site-link">View →</a></div>
-<div class="site-item"><div><h3>WAVFORMAT</h3></div><a class="site-link">View →</a></div>
-</div>
+<section id="about">
+  <div class="container fade-in">
+
+    <span class="section-label">02 / About / Beginnings</span>
+
+    <div class="about-grid">
+
+      <div class="about-copy">
+
+        <h2 class="section-heading">
+          From curiosity to systems thinking.
+        </h2>
+
+        <p>
+          It started with building simple websites, then evolved into design systems,
+          then into understanding how brands communicate and behave online.
+        </p>
+
+        <p>
+          I studied Computer Science at Anchor University.
+          My work sits between development, design, and culture — shaped by music,
+          fashion, photography, and internet behavior.
+        </p>
+
+        <p>
+          Over time, I’ve worked on event platforms, e-commerce systems,
+          digital campaigns, and creative brand experiences.
+          Each project is an attempt to make systems feel more human.
+        </p>
+
+        <p>
+          I care about clarity, intention, and building digital products
+          that can evolve beyond trends.
+        </p>
+
+      </div>
+
+      <aside class="meta-stack">
+
+        <div class="meta-item">
+          <span class="meta-key">Role</span>
+          <span class="meta-value">
+            Developer · Designer · Creative Strategist
+          </span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-key">Based</span>
+          <span class="meta-value">Lagos, Nigeria.</span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-key">Experience</span>
+          <span class="meta-value">
+            Web systems, UI/UX, digital marketing, brand development
+          </span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-key">Previously</span>
+          <span class="meta-value">
+            SLOT Systems · Independent builds · Creative collaborations
+          </span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-key">Focus</span>
+          <span class="meta-value">
+            Culture, startups, music, fashion, digital ecosystems
+          </span>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
 </section>
 
-<section class="ready reveal">
-<div class="container">
-<h2>I’m ready to work on ambitious ideas.</h2>
-<a href="#">Start a conversation →</a>
-</div>
+<section>
+  <div class="container fade-in">
+
+    <span class="section-label">03 / Approach</span>
+
+    <div class="belief">Think before you ship.</div>
+    <div class="belief">Simplicity scales better.</div>
+    <div class="belief">Design should adapt, not resist.</div>
+    <div class="belief">Attention is never automatic.</div>
+
+  </div>
 </section>
 
-<section id="contact" class="reveal">
-<div class="container">
-<h2>Contact</h2>
-<a class="email-link">mkezie16@gmail.com</a>
-</div>
+<section>
+  <div class="container fade-in">
+
+    <span class="section-label">04 / Tools & Stack</span>
+
+    <h2 class="section-heading">
+      Tools are just extensions of thinking.
+    </h2>
+
+    <div class="stack-group">
+      <h4>Design</h4>
+      <p>Figma, Photoshop, Illustrator, motion basics, visual direction</p>
+    </div>
+
+    <div class="stack-group">
+      <h4>Frontend</h4>
+      <p>HTML, CSS, JavaScript, responsive design, UI systems</p>
+    </div>
+
+    <div class="stack-group">
+      <h4>Systems</h4>
+      <p>PHP, MySQL, APIs, Paystack integration, CMS structures</p>
+    </div>
+
+    <div class="stack-group">
+      <h4>Workflow</h4>
+      <p>Brand strategy, creative direction, product thinking, storytelling</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container fade-in">
+
+    <span class="section-label">05 / Writing / Takes</span>
+
+    <div class="writing-list">
+
+      <article class="writing-item">
+        <div class="writing-date">2026</div>
+        <div class="writing-title">Why Creative Brands Fail Online</div>
+        <div>→</div>
+      </article>
+
+      <article class="writing-item">
+        <div class="writing-date">2026</div>
+        <div class="writing-title">Turning Ideas Into Systems That Scale</div>
+        <div>→</div>
+      </article>
+
+      <article class="writing-item">
+        <div class="writing-date">2025</div>
+        <div class="writing-title">Lagos Internet Culture & Visual Identity</div>
+        <div>→</div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container fade-in">
+
+    <span class="section-label">06 / Contact</span>
+
+    <h2 class="contact-heading">
+      Let’s build something
+      intentional and lasting.
+    </h2>
+
+    <p class="contact-text">
+      Open to collaborations across culture, tech, fashion, music,
+      and digital products with strong creative direction.
+    </p>
+
+    <a href="mailto:mkezie16@gmail.com?subject=Hello&body=Hey%20Onyedika%2C%0A%0A" class="email-link">
+      Send a message!
+    </a>
+
+    <div class="socials">
+      <a href="#">LinkedIn</a>
+      <a href="https://github.com/Tfiskenzie">GitHub</a>
+      <a href="https://www.instagram.com/tfiskenzie">Instagram</a>
+      <a href="#">Behance</a>
+    </div>
+
+    <footer>
+      <span>© 2026 Onyedika Okezie Emmanuel</span>
+      <span>Built with intention.</span>
+    </footer>
+
+  </div>
 </section>
 
 </main>
 
 <script>
+  const header = document.getElementById('header');
 
-/* CURSOR */
-const cursor=document.querySelector(".cursor");
-window.addEventListener("mousemove",(e)=>{
-  cursor.style.left=e.clientX+"px";
-  cursor.style.top=e.clientY+"px";
-});
-
-/* LOADER */
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("loader").style.display="none";
-  },1200);
-});
-
-/* SCROLL REVEAL */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 10){
+      header.classList.add('scrolled');
+    } else{
+      header.classList.remove('scrolled');
     }
   });
-});
 
-document.querySelectorAll(".reveal").forEach(el=>{
-  observer.observe(el);
-});
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold:0.15 });
 
-/* CINEMATIC SCROLL (parallax micro movement) */
-window.addEventListener("scroll",()=>{
-  document.querySelectorAll("section").forEach((sec,i)=>{
-    sec.style.transform=`translateY(${window.scrollY*0.02 * (i%2?1:-1)}px)`;
+  document.querySelectorAll('.fade-in').forEach((el) => {
+    observer.observe(el);
   });
-});
 
+  const cursor = document.querySelector('.cursor');
+
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.top = e.clientY + 'px';
+    cursor.style.left = e.clientX + 'px';
+  });
 </script>
 
 </body>
