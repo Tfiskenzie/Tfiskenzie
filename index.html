@@ -35,25 +35,60 @@ body{
   background:var(--color-bg);
   color:var(--color-text);
   font-family:var(--font-sans);
-  cursor:none;
   overflow-x:hidden;
-}
-
-::selection{
-  background:var(--accent);
-  color:white;
+  cursor:none;
 }
 
 /* CURSOR */
 .cursor{
-  width:12px;height:12px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:var(--accent);
   position:fixed;
-  top:0;left:0;
+  top:0;
+  left:0;
   transform:translate(-50%,-50%);
   pointer-events:none;
   z-index:9999;
+}
+
+/* SKELETON */
+.skeleton-wrap{
+  position:fixed;
+  inset:0;
+  background:var(--color-bg);
+  z-index:99999;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+}
+
+.skeleton-line{
+  width:260px;
+  height:10px;
+  background:linear-gradient(90deg,#e7e3da,#f5f2ea,#e7e3da);
+  background-size:200% 100%;
+  animation:shimmer 1.2s infinite linear;
+  border-radius:6px;
+}
+
+.skeleton-line.large{
+  width:320px;
+  height:14px;
+}
+
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+
+.skeleton-wrap.hide{
+  opacity:0;
+  visibility:hidden;
+  transition:.6s;
 }
 
 /* LAYOUT */
@@ -68,31 +103,14 @@ section{
   border-top:1px solid var(--color-border);
 }
 
-.section-label{
-  font-family:var(--font-mono);
-  font-size:.75rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(26,26,26,.5);
-  margin-bottom:2rem;
-  display:block;
-}
-
-.section-heading{
-  font-family:var(--font-serif);
-  font-size:clamp(2.5rem,5vw,4rem);
-  line-height:1;
-  margin-bottom:2rem;
-}
-
 /* HEADER */
 header{
   position:sticky;
   top:0;
   background:rgba(245,242,234,.8);
   backdrop-filter:blur(10px);
-  border-bottom:1px solid transparent;
   z-index:1000;
+  border-bottom:1px solid transparent;
 }
 
 header.scrolled{
@@ -100,10 +118,10 @@ header.scrolled{
 }
 
 .header-inner{
-  height:72px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  height:72px;
 }
 
 .logo{
@@ -111,50 +129,18 @@ header.scrolled{
   letter-spacing:.15em;
 }
 
-nav{display:flex;gap:2rem}
-
-nav a{
-  position:relative;
-}
-
-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:-4px;
-  width:0;height:1px;
-  background:var(--color-text);
-  transition:.3s;
-}
-
-nav a:hover::after{width:100%}
-
 /* HERO */
 .creative-hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  position:relative;
-  overflow:hidden;
-  border-top:none;
-}
-
-.creative-grid{
-  position:absolute;inset:0;
-  background-image:
-  linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
-  background-size:40px 40px;
-  opacity:.5;
 }
 
 .hero-massive{
   font-family:var(--font-serif);
-  font-size:clamp(5rem,11vw,10rem);
-  line-height:.88;
-  letter-spacing:-0.08em;
+  font-size:clamp(4rem,10vw,9rem);
+  line-height:.9;
 }
-
-.hero-massive span{color:var(--accent)}
 
 /* PROJECTS */
 .project{
@@ -165,14 +151,11 @@ nav a:hover::after{width:100%}
   border-bottom:1px solid var(--color-border);
 }
 
-.project-index,.project-tag{
-  font-family:var(--font-mono);
-  font-size:.75rem;
-  color:rgba(26,26,26,.5);
-  text-transform:uppercase;
-}
+.project-title{font-size:1.1rem}
 
-.project:hover .project-title{color:var(--accent)}
+.project:hover .project-title{
+  color:var(--accent);
+}
 
 .project-arrow{
   opacity:0;
@@ -184,20 +167,19 @@ nav a:hover::after{width:100%}
   opacity:1;
 }
 
-/* FEATURED WORK */
-.feature-project{
-  display:grid;
-  grid-template-columns:1.2fr .9fr;
-  gap:3rem;
-  padding-bottom:4rem;
+/* SITE LIST */
+.site-item{
+  display:flex;
+  justify-content:space-between;
+  padding:1.6rem 0;
   border-bottom:1px solid var(--color-border);
-  margin-bottom:4rem;
+  flex-wrap:wrap;
+  gap:1rem;
 }
 
-.feature-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.site-link{
+  font-family:var(--font-mono);
+  font-size:.78rem;
 }
 
 /* READY */
@@ -207,53 +189,23 @@ nav a:hover::after{width:100%}
   line-height:.95;
 }
 
-.ready-cta{
-  display:inline-block;
-  padding:1rem 1.5rem;
-  border:1px solid var(--color-border);
-  margin-top:2rem;
-  transition:.3s;
-}
-
-.ready-cta:hover{
-  border-color:var(--accent);
-  transform:translateY(-3px);
-}
-
 /* CONTACT */
 .email-link{
   font-size:1.4rem;
   position:relative;
 }
 
-.email-link::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:-5px;
-  width:100%;height:1px;
-  background:var(--color-text);
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:.3s;
-}
-
-.email-link:hover::after{
-  transform:scaleX(1);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .project,
-  .feature-project{
-    grid-template-columns:1fr;
-  }
-  body{cursor:auto}
-}
-
 </style>
 </head>
 
 <body>
+
+<!-- SKELETON LOADER -->
+<div class="skeleton-wrap" id="loader">
+  <div class="skeleton-line large"></div>
+  <div class="skeleton-line"></div>
+  <div class="skeleton-line"></div>
+</div>
 
 <div class="cursor"></div>
 
@@ -272,92 +224,78 @@ nav a:hover::after{width:100%}
 
 <!-- HERO -->
 <section class="creative-hero">
-  <div class="creative-grid"></div>
-
   <div class="container">
     <h1 class="hero-massive">
-      Building digital
-      systems for
-      culture,
-      music,
-      fashion &
-      Lagos <span>internet energy.</span>
+      Building digital systems for culture,
+      music, fashion & Lagos internet energy.
     </h1>
   </div>
-</section>
-
-<!-- FEATURED WORK -->
-<section>
-<div class="container">
-
-<span class="section-label">01 / Featured Work</span>
-
-<h2 class="section-heading">Selected worlds & systems</h2>
-
-<!-- KERIN -->
-<div class="feature-project">
-  <div class="feature-image">
-    <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1200">
-  </div>
-  <div>
-    <h3>KERIN — Afrobeats Experience</h3>
-    <p>Cinematic landing page for Lagos-based Afrofusion artist.</p>
-  </div>
-</div>
-
-<!-- BEUNSRS -->
-<div class="feature-project">
-  <div class="feature-image">
-    <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1200">
-  </div>
-  <div>
-    <h3>BEUNSRS — Brand System</h3>
-    <p>Streetwear identity built outside algorithm culture.</p>
-  </div>
-</div>
-
-<!-- WAVFORMAT -->
-<div class="feature-project">
-  <div class="feature-image">
-    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200">
-  </div>
-  <div>
-    <h3>TheWavFormat — Summer Campaign</h3>
-    <p>Music-driven visual identity + creative production site.</p>
-  </div>
-</div>
-
-</div>
 </section>
 
 <!-- WORK -->
 <section id="work">
 <div class="container">
 
-<span class="section-label">02 / Selected Work</span>
+<h2>Selected Work</h2>
 
 <div class="project">
-<div class="project-index">001</div>
+<div>001</div>
 <div class="project-title">PISI Platform</div>
-<div class="project-tag">Events</div>
-<div class="project-desc">Event ecosystem for ticketing & analytics</div>
+<div>Events</div>
+<div>Ticketing + analytics system</div>
 <div class="project-arrow">→</div>
 </div>
 
 <div class="project">
-<div class="project-index">002</div>
+<div>002</div>
 <div class="project-title">AListListener</div>
-<div class="project-tag">Music</div>
-<div class="project-desc">Afrobeats editorial platform</div>
+<div>Music</div>
+<div>Afrobeats editorial platform</div>
 <div class="project-arrow">→</div>
 </div>
 
 <div class="project">
-<div class="project-index">003</div>
-<div class="project-title">Gadget Store</div>
-<div class="project-tag">E-Commerce</div>
-<div class="project-desc">Tech retail system</div>
+<div>003</div>
+<div class="project-title">Telehealth System</div>
+<div>Health</div>
+<div>Virtual wellness platform</div>
 <div class="project-arrow">→</div>
+</div>
+
+</div>
+</section>
+
+<!-- WEBSITES -->
+<section>
+<div class="container">
+
+<h2>Live Websites</h2>
+
+<!-- KERIN -->
+<div class="site-item">
+<div>
+<h3>KERIN — Afrobeats Experience</h3>
+<p>Lagos-based artist landing page with cinematic motion.</p>
+</div>
+<a class="site-link" href="#">Live →</a>
+</div>
+
+<!-- BEUNSRS -->
+<div class="site-item">
+<div>
+<h3>BEUNSRS — Brand System</h3>
+<p>Streetwear identity outside algorithm culture.</p>
+</div>
+<a class="site-link" href="#">View →</a>
+</div>
+
+<!-- WAVFORMAT -->
+<div class="site-item">
+<div>
+<h3>TheWavFormat — Creative Campaign</h3>
+<p>Music production summer visual system.</p>
+</div>
+<a class="site-link" href="#">Explore →</a>
 </div>
 
 </div>
@@ -367,12 +305,13 @@ nav a:hover::after{width:100%}
 <section>
 <div class="container">
 
-<span class="section-label">03 / Availability</span>
+<h2 class="ready-heading">
+I’m ready to work
+on ambitious ideas.
+</h2>
 
-<h2 class="ready-heading">I’m ready to work on ambitious ideas.</h2>
-
-<a class="ready-cta" href="mailto:mkezie16@gmail.com?subject=Work%20Inquiry">
-Start a conversation →
+<a href="mailto:mkezie16@gmail.com?subject=Work" class="email-link">
+Send a message →
 </a>
 
 </div>
@@ -382,11 +321,9 @@ Start a conversation →
 <section id="contact">
 <div class="container">
 
-<span class="section-label">04 / Contact</span>
+<h2>Contact</h2>
 
-<h2 class="ready-heading">Let’s build something meaningful.</h2>
-
-<a class="email-link" href="mailto:mkezie16@gmail.com">
+<a href="mailto:mkezie16@gmail.com" class="email-link">
 mkezie16@gmail.com
 </a>
 
@@ -397,15 +334,24 @@ mkezie16@gmail.com
 
 <script>
 
+// CURSOR
 const cursor=document.querySelector(".cursor");
 window.addEventListener("mousemove",(e)=>{
   cursor.style.left=e.clientX+"px";
   cursor.style.top=e.clientY+"px";
 });
 
+// HEADER SCROLL
 const header=document.getElementById("header");
 window.addEventListener("scroll",()=>{
   header.classList.toggle("scrolled",window.scrollY>10);
+});
+
+// SKELETON LOADER
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("hide");
+  },800);
 });
 
 </script>
