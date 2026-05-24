@@ -13,7 +13,7 @@
 
 <style>
 
-/* ================= KENZIE LOADER (FIXED) ================= */
+/* ================= KENZIE LOADER ================= */
 #loader{
   position:fixed;
   inset:0;
@@ -25,15 +25,15 @@
   font-family:var(--font-serif);
   font-size:2rem;
   letter-spacing:0.3em;
-  opacity:1;
-  visibility:visible;
-  transition:opacity .6s ease, visibility .6s ease;
+  animation:fadeOutLoader 1s ease forwards;
+  animation-delay:1.2s;
 }
 
-#loader.hide{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
+@keyframes fadeOutLoader{
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
 }
 
 /* ================= BACKGROUND MOTION ================= */
@@ -273,12 +273,43 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 
 .email-link{font-size:1.4rem}
 
+/* ================= NEW SKILLS SECTION ================= */
+.skills{
+  margin-top:3rem;
+}
+
+.skills h3{
+  font-family:var(--font-serif);
+  font-size:1.8rem;
+  margin-bottom:1rem;
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1rem;
+}
+
+.skill-box{
+  border:1px solid #E0DDD4;
+  padding:1rem;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(6px);
+}
+
+.skill-box span{
+  font-family:var(--font-mono);
+  font-size:.75rem;
+  color:var(--accent);
+  display:block;
+  margin-bottom:.4rem;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
 <div id="loader">KENZIE</div>
 
 <div class="cursor"></div>
@@ -345,18 +376,51 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 <h2>About Me</h2>
 
 <p>
-Creative Developer based in Lagos, Nigeria. Computer Science graduate from Anchor University.
-I build digital systems, creative platforms, and cultural web experiences.
+I am a Creative Developer based in Lagos, Nigeria. I studied Computer Science at Anchor University and specialize in building digital systems, web platforms, and brand experiences.
 </p>
 
 <p>
-Focused on Afrobeats, fashion, digital culture, and storytelling through interactive design.
-Experience spans PISI (event systems), AListListener (music media), e-commerce platforms, and startup builds.
+My work sits at the intersection of development, design, and culture — influenced by Afrobeats, fashion, street culture, photography, and internet communities.
 </p>
 
 <p>
-Previously interned at SLOT Systems Limited and currently working on independent digital products.
+I have worked on event management systems (PISI Platform), music editorial platforms (AListListener), telehealth systems, e-commerce experiences, and creative brand campaigns.
 </p>
+
+<p>
+I previously interned at SLOT Systems Limited and have built independent digital products and client projects across Nigeria’s creative and tech space.
+</p>
+
+<p>
+I focus on building scalable systems that combine storytelling, usability, and cultural relevance.
+</p>
+
+<!-- ================= SKILLS SECTION (ADDED ONLY) ================= -->
+<div class="skills">
+  <h3>Skills / Proficiencies</h3>
+
+  <div class="skills-grid">
+    <div class="skill-box">
+      <span>Frontend</span>
+      HTML, CSS, JavaScript, React
+    </div>
+
+    <div class="skill-box">
+      <span>Design</span>
+      UI/UX, Figma, Branding, Visual Systems
+    </div>
+
+    <div class="skill-box">
+      <span>Backend</span>
+      PHP, MySQL, APIs, Paystack Integration
+    </div>
+
+    <div class="skill-box">
+      <span>Creative</span>
+      Art Direction, Storytelling, Campaigns
+    </div>
+  </div>
+</div>
 
 </div>
 </section>
