@@ -52,7 +52,27 @@ body::before{
   to{transform:translate3d(-20px,20px,0) scale(1.05);}
 }
 
-/* ================= HERO FX (GLITCH + FADE IN) ================= */
+/* ================= HERO FX + BACKGROUND IMAGE ================= */
+.hero{
+  position:relative;
+  background-image:url("https://images.unsplash.com/photo-1520975922203-b4d2d1c3f3e6?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(245,242,234,.85);
+}
+
+.hero .container{
+  position:relative;
+  z-index:2;
+}
+
 .hero h1{
   position:relative;
   animation:heroFade 1.2s ease forwards;
@@ -64,7 +84,6 @@ body::before{
   to{opacity:1; transform:translateY(0);}
 }
 
-/* glitch overlay (does NOT change text) */
 .hero h1::after{
   content:attr(data-text);
   position:absolute;
@@ -96,12 +115,7 @@ body::before{
   transform:translateY(0);
 }
 
-/* ================= CINEMATIC SCROLL ================= */
-section{
-  will-change:transform;
-}
-
-/* ================= KEEP ALL YOUR ORIGINAL CSS BELOW ================= */
+/* KEEP EVERYTHING ELSE EXACTLY SAME */
 
 :root{
   --color-bg:#F5F2EA;
@@ -207,7 +221,7 @@ nav a:hover::after{
   color:rgba(26,26,26,.75);
 }
 
-/* KEEP EVERYTHING ELSE EXACTLY SAME */
+/* KEEP EVERYTHING ELSE SAME */
 section{padding:7rem 0;border-top:1px solid var(--color-border)}
 .container{max-width:960px;margin:0 auto;padding:0 1.5rem}
 
@@ -264,12 +278,10 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 
 <body>
 
-<!-- ================= KENZIE LOADER ================= -->
 <div id="loader">KENZIE</div>
 
 <div class="cursor"></div>
 
-<!-- HERO (UNCHANGED CONTENT) -->
 <section class="hero">
   <div class="container">
     <h1 data-text="I design & build digital worlds for music, culture, brands, and internet-driven storytelling.">
@@ -294,8 +306,6 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 </header>
 
 <main>
-
-<!-- EVERYTHING ELSE UNTOUCHED -->
 
 <section id="work" class="reveal">
 <div class="container">
@@ -330,8 +340,29 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 
 <section id="about" class="reveal">
 <div class="container">
+
 <h2>About Me</h2>
-<p>I build digital systems and creative brands rooted in culture and storytelling.</p>
+
+<p>
+I am a Creative Developer based in Lagos, Nigeria. I studied Computer Science at Anchor University and specialize in building digital systems, web platforms, and brand experiences.
+</p>
+
+<p>
+My work sits at the intersection of development, design, and culture — influenced by Afrobeats, fashion, street culture, photography, and internet communities.
+</p>
+
+<p>
+I have worked on event management systems (PISI Platform), music editorial platforms (AListListener), telehealth systems, e-commerce experiences, and creative brand campaigns.
+</p>
+
+<p>
+I previously interned at SLOT Systems Limited and have built independent digital products and client projects across Nigeria’s creative and tech space.
+</p>
+
+<p>
+I focus on building scalable systems that combine storytelling, usability, and cultural relevance.
+</p>
+
 </div>
 </section>
 
@@ -362,21 +393,18 @@ section{padding:7rem 0;border-top:1px solid var(--color-border)}
 
 <script>
 
-/* CURSOR */
 const cursor=document.querySelector(".cursor");
 window.addEventListener("mousemove",(e)=>{
   cursor.style.left=e.clientX+"px";
   cursor.style.top=e.clientY+"px";
 });
 
-/* LOADER */
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     document.getElementById("loader").style.display="none";
   },1200);
 });
 
-/* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
@@ -389,7 +417,6 @@ document.querySelectorAll(".reveal").forEach(el=>{
   observer.observe(el);
 });
 
-/* CINEMATIC SCROLL (parallax micro movement) */
 window.addEventListener("scroll",()=>{
   document.querySelectorAll("section").forEach((sec,i)=>{
     sec.style.transform=`translateY(${window.scrollY*0.02 * (i%2?1:-1)}px)`;
